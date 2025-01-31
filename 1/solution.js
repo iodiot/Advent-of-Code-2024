@@ -6,13 +6,16 @@ console.time('time');
 
 const lines = fs.readFileSync('./input.txt', 'utf8').trim().split('\n');
 
-const left = lines.map(line => Number.parseInt(line.split('   ')[0])).sort();
-const right = lines.map(line => Number.parseInt(line.split('   ')[1])).sort();
+const parseAndSort = (index) =>
+  lines.map(line => Number.parseInt(line.split('   ')[index])).sort();
+
+const left = parseAndSort(0);
+const right = parseAndSort(1);
 
 let diff = 0;
 let sim = 0;
 
-for (let i = 0; i < left.length; i++) {
+for (let i = 0; i < left.length; ++i) {
  diff += Math.abs(left[i] - right[i]);
  sim += left[i] * right.filter(r => r === left[i]).length;
 }
